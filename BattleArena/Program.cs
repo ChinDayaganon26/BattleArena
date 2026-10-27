@@ -12,23 +12,24 @@ namespace BattleArena
     {
         static void Main(string[] args)
         {
-            int round = 1;
-            var Oliver = new Marksman("Oliver", 100, 30);
-            var Billy = new Fighter("Billy", 200, 15);
-            var Nicole = new Tank("Nicole", 150, 30);
-
+            var Raymond = new Oliver(100, 30, 3);
+            var Kirk = new Nicole(200, 15, 5);
+            var Cods = new Billy(150, 30, 10);
             Oliver.DisplayStats();
-            Billy.DisplayStats();
             Nicole.DisplayStats();
+            Billy.DisplayStats();
 
-            while (Oliver.IsAlive && Billy.IsAlive && Nicole.IsAlive)
+            while (Oliver.IsAlive && Nicole.IsAlive && Billy.IsAlive)
             {
-
-                Oliver.Attack(Billy);
+                Console.WriteLine("\n\n----------------------------------------------");
+                Oliver.Attack(Nicole);
+                Nicole.DisplayStats();
                 Console.WriteLine("----------------------------------------------");
-                Nicole.Attack(Oliver);
+                Billy.Attack(Oliver);
+                Oliver.DisplayStats();
                 Console.WriteLine("----------------------------------------------");
-                round++;
+                Nicole.Attack(Billy);
+                Billy.DisplayStats();
             }
 
             Console.ReadKey();
