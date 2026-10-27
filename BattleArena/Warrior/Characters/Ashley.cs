@@ -1,29 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using BattleArena.Combat;
+using BattleArena.Enums;
+using System;
+using System.Threading;
 
 namespace BattleArena.Warriors.Characters
 {
     public class Ashley : Warrior
     {
-        public Ashley(string name, int health, int attackPower, WarriorType warriorType)
-            : base(name, health, attackPower, warriorType)
+        public int PunchDamage { get; private set; }
+        public Ashley(int health, int attackPower, int speed, int punchDamage, TeamType teamType)
+            : base("Ashley", health, attackPower, speed, WarriorType.Fighter, teamType)
         {
-
+            PunchDamage = punchDamage;
+            attackPower += PunchDamage;
         }
 
         public override void Attack(Warrior target)
         {
-            throw new NotImplementedException();
+            var dmginfo = new DamageInfo(AttackPower, "Sapak", HasCriticalChance, this);
+            TakeDamage(dmginfo);
+
+            Console.WriteLine($"->{Name}: Sasapakin kita {target.Name}!");
+
+            Thread.Sleep(1000);
+            Console.WriteLine($"->{target.Name}: Aray ko po!");
+
+            Thread.Sleep(1000);
+            if (target.IsAlive)
+                Console.WriteLine($"->{target.Name}: Buhay pa ko bebe {target.Name}");
         }
     }
 
-    public class WarriorType
-    {
-        internal static WarriorType Tank;
-        internal static WarriorType Fighter;
-        internal static WarriorType Marksman;
-    }
 }

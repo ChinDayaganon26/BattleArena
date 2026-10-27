@@ -1,38 +1,27 @@
-﻿using BattleArena.Warriors;
+﻿using BattleArena.Enums;
+using BattleArena.Warriors.Characters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace BattleArena
 {
-
     internal class Program
     {
         static void Main(string[] args)
         {
-            var Raymond = new Oliver(100, 30, 3);
-            var Kirk = new Nicole(200, 15, 5);
-            var Cods = new Billy(150, 30, 10);
-            Oliver.DisplayStats();
-            Nicole.DisplayStats();
-            Billy.DisplayStats();
+            var Oliver = new Oliver(100, 30, 25, 10, TeamType.A);
+            var Billy= new Billy(200, 15, 10, 30, TeamType.B);
+            var Nicole = new Nicole(150, 20, 15, 10, TeamType.A);
 
-            while (Oliver.IsAlive && Nicole.IsAlive && Billy.IsAlive)
-            {
-                Console.WriteLine("\n\n----------------------------------------------");
-                Oliver.Attack(Nicole);
-                Nicole.DisplayStats();
-                Console.WriteLine("----------------------------------------------");
-                Billy.Attack(Oliver);
-                Oliver.DisplayStats();
-                Console.WriteLine("----------------------------------------------");
-                Nicole.Attack(Billy);
-                Billy.DisplayStats();
-            }
+            BattleArena.AddWarrior(Oliver);
+            BattleArena.AddWarrior(Billy);
+            BattleArena.AddWarrior(Nicole);
 
-            Console.ReadKey();
+            BattleArena.StartBattle();
         }
     }
 }

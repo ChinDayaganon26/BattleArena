@@ -1,39 +1,37 @@
-﻿using BattleArena.Warriors.Characters;
+﻿using BattleArena.Combat;
+using BattleArena.Enums;
 using System;
 using System.Threading;
 
-namespace BattleArena.Warriors
+namespace BattleArena.Warriors.Characters
 {
-    public class Oliver: Warrior
+    public class Oliver : Warrior
     {
-        private bool _hasCriticalChance;
-
-        public int SibatDamage { get; private set; }
-        public Oliver(int health, int attackPower, int arrowDamage)
-            : base("Raymond", health, attackPower, WarriorType.Marksman)
+        public int DuraDamage { get; private set; }
+        public Oliver(int health, int attackPower, int speed, int duraDamage, TeamType teamType)
+            : base("Oliver", health, attackPower, speed, WarriorType.Marksman, teamType)
         {
-            SibatDamage = arrowDamage;
-            attackPower += SibatDamage;
+            DuraDamage = duraDamage;
+            attackPower += DuraDamage;
         }
-
 
         public override void Attack(Warrior target)
         {
-
-            var dmginfo = new DamageInfo(AttackPower, "Sibat", _hasCriticalChance);
+            var dmginfo = new DamageInfo(AttackPower, "Dura", HasCriticalChance, this);
             TakeDamage(dmginfo);
 
+            Console.WriteLine($"->{Name}: Duburaan kita bebe {target.Name}!");
 
             Thread.Sleep(1000);
-            Console.WriteLine($"\t-> {Name}: Ano ka Boi! {target.Name}!");
-
-            Thread.Sleep(1000);
-            Console.WriteLine($"\t-> {target.Name}: Takas kapa!");
+            Console.WriteLine($"->{target.Name}: Need more babe!");
 
             Thread.Sleep(1000);
             if (target.IsAlive)
-                Console.WriteLine($"\t-> {target.Name}: Punit ako! {target.Name}");
-
+                Console.WriteLine($"->{target.Name}: Buhay pa ko babe {target.Name}");
         }
     }
+
 }
+
+
+
